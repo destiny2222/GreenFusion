@@ -1,0 +1,80 @@
+{%  extends 'base.html' %}
+{%  load static  %}
+
+
+{%  block body  %}
+
+        <main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                <div class="container d-flex align-items-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{%  url 'index:home' %}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Product</a></li>
+                        <!-- <li class="breadcrumb-item active" aria-current="page">Default</li> -->
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+                <section class="pt-5 pb-5" style="background-color: #f3f3f3;">
+                    <div class="container pt-3">
+                        <div class="tab-content">
+                            <div class="tab-pane p-0 fade show active" id="top-all-tab" role="tabpanel"
+                                aria-labelledby="top-all-link">
+                                <div class="products">
+                                    <div class="row justify-content-center">
+                                        {% for product in items %}
+                                        <div class="col-12 col-md-4 col-lg-4 col-xl-12col">
+                                            <div class="product product-11 text-center">
+                                                <figure class="product-media">
+                                                    <a href="{{ item.get_absolute_url }}">
+                                                        <img src="{{  product.image.url  }}"
+                                                            alt="Product image" class="product-image object-cover">
+                                                        <img src="{{  product.image.url  }}"
+                                                            alt="Product image" class="product-image-hover object-cover">
+                                                    </a>
+    
+                                                    <div class="product-action-vertical">
+                                                        <a href="{%  url 'index:addwish' product.id %}" class="btn-product-icon btn-wishlist " title="add to wishlist"><span>add to wishlist</span></a>
+                                                    </div><!-- End .product-action-vertical -->
+                                                </figure><!-- End .product-media -->
+    
+                                                <div class="product-body">
+                                                    <div class="product-cat">
+                                                        <!-- <a href="#">Lighting</a> -->
+                                                    </div><!-- End .product-cat -->
+                                                    <h3 class="product-title"><a href="{%  url 'index:addcart' product.id %}">{{  product.name }}</a></h3>
+                                                    <!-- End .product-title -->
+                                                    <div class="product-price">
+                                                        <!-- {% if i.discount_price %} -->
+                                                        <!-- <span class="old-price">Was ₦{{ product.discount_price }}</span>  -->
+                                                        <!-- {% else %} -->
+                                                        <span class="new-price"> ₦{{ product.price|floatformat:2 }}</span> 
+                                                        <!-- {% endif %} -->
+                                                    </div><!-- End .product-price -->
+                                                </div><!-- End .product-body -->
+                                                <div class="product-action">
+                                                    <!-- <a href="#" class="btn-product btn-cart"><span>add to cart</span></a> -->
+                                                     <a href="{%  url 'index:addcart' product.id %}" class="btn-product btn-cart update-cart">
+                                                        <span>add to cart</span>
+                                                        <i class="fas fa-shopping-cart ml-1"></i>
+                                                      </a>
+                                                      <a href="{%  url 'index:addwish' product.id %}" class="btn-product btn-wishlist">
+                                                        <span>add to wishlist</span>
+                                                      </a>
+                                                </div><!-- End .product-action -->
+
+                                            </div><!-- End .product -->
+                                        </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
+                                        {% endfor %}
+
+                                    </div><!-- End .row -->
+                                </div><!-- End .products -->
+                            </div><!-- .End .tab-pane -->
+                        </div><!-- End .tab-content -->
+                    </div><!-- End .container -->
+               </section>
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+{%  endblock %}

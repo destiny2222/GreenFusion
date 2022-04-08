@@ -1,0 +1,125 @@
+# data = cartData(request)
+# if request.method == 'POST':
+#     form = CheckoutForm(request.POST or None)
+#     if form.is_valid():
+#         obj = form.save(commit=False)
+#         name = obj.first_name + " " + obj.last_name
+#         email = obj.email
+#         phone = obj.phone_number
+        
+#         order = form.save()
+#         for item in data:
+#             OrderItem.objects.create(
+#                 order=order,
+#                 product=item['product'],
+#                 price=item['price'],
+#                 quantity=item['quantity']
+#             )  
+
+#         list = []
+#         for item in data:           
+#             amounts = int(item['price'] * item['quantity'])
+#             list.append(amounts)
+#         price = sum(list)
+        
+#         for item in data:       
+#             slug = item['my-slug']
+#         data.clear()
+
+#         #EVERYTHING FLUTTERWAVE AND PAYMENT
+#         auth_token= env('SECRET_KEY')
+#         hed = {'Authorization': 'Bearer ' + auth_token}
+#         data = {
+#             "tx_ref":''+str(math.floor(1000000 + random.random()*9000000)),
+#             "amount":price,
+#             "currency":"NGN",
+#             "redirect_url":"https://a1a7-197-210-45-62.ngrok.io/orders/webhook",
+#             "payment_options":"card",
+#             "meta":{
+#                 "consumer_id":1,
+#                 "consumer_mac":"92a3-912ba-1192a"
+#             },
+#             "customer":{
+#                 "email":email,
+#                 "phonenumber":int(phone),
+#                 "name":name
+#             },
+
+#             "customizations":{
+#                 "title":"JummertyCollection store",
+#                 "description":"Best store in Nigeria",
+#                 "logo":"https://avatars.githubusercontent.com/u/63419117?v=4"
+#             }
+#             }
+#         url = 'https://api.flutterwave.com/v3/payments'
+#         response = requests.post(url, json=data, headers=hed)
+#         response=response.json()
+#         link=response['data']['link']
+#         return redirect(link)      
+# else:
+#     form = CheckoutForm()
+
+
+<!-- ========================================================= paystack -->
+
+url = "https://api.paystack.co/transaction/initialize?Authorization=sk_test_a4ea6241f774807d6176c95ba7ea1f482a9a0aa7&Cache-Control=no-cache"
+
+payload={'email': 'customer@email.com',
+'amount': '20000'}
+files=[
+
+]
+headers = {
+'Authorization': 'Bearer sk_test_a4ea6241f774807d6176c95ba7ea1f482a9a0aa7',
+'Cookie': 'sails.sid=s%3Ak1swhZ3yZxK6DjittqpBtCMU2B6PkKbb.YGePPehIObXtCmS%2BUd5iGAF%2BrVHEy6%2FWjaGxArKb02I'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload, files=files)
+
+return (response.text)
+
+<!-- ========================================================== -->
+         obj = form.save(commit=False)
+            name = obj.first_name + " " + obj.last_name
+            email = obj.email
+            phone = obj.phone_number
+
+            order = form.save()
+            for item in data:
+                OrderItem.objects.create(
+                    order=order,
+                    product=item['product'],
+                    price=item['price'],
+                    quantity=item['quantity']
+                )  
+
+            list = []
+            for item in data:           
+                amounts = int(item['price'] * item['quantity'])
+                list.append(amounts)
+            price = sum(list)
+            
+            for item in data:       
+                slug = item['my-slug']
+            data.clear()
+
+            #EVERYTHING FLUTTERWAVE AND PAYMENT
+            auth_token= env('PAYSTACK_SECRET_KEY')
+            hed = {'Authorization': 'Bearer ' + auth_token}
+            data = {
+                "email":email,
+                "amount":price,
+                "currency":"NGN",
+                "ref":''+str(math.floor(1000000 + random.random()*9000000)),
+                # "redirect_url":"https://a1a7-197-210-45-62.ngrok.io/orders/webhook",
+
+                }
+            url = 'https://api.paystack.co/transaction/initialize'
+            response = requests.post(url, json=data, headers=hed)
+            response=response.json()
+            link=response['data']['link']
+            return redirect(link)      
+    else:
+        form = CheckoutForm()
+        {% csrf_token %}
+        {{  form|crispy }}

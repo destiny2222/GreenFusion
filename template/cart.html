@@ -1,0 +1,95 @@
+{%  extends 'base.html'  %}
+{% load humanize %}
+{%  load static  %}
+
+{%  block  body %}
+        <main class="main">
+        	<div class="text-center page-header" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">Shopping Cart<span>Shop</span></h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+            	<div class="cart">
+	                <div class="container">
+	                	<div class="row">
+	                		<div class="col-lg-9">
+	                			<table class="table table-cart table-mobile">
+									<thead>
+										<tr>
+											<th>Product</th>
+											<th>Price</th>
+											<th>Quantity</th>
+											<th>Total</th>
+											<th></th>
+										</tr>
+									</thead>
+
+									<tbody>
+                                        {% for order_item in qs %}
+										<tr>
+											<td class="product-col">
+												<div class="product">
+													<figure class="product-media">
+														<a href="#">
+															<img src="{{ order_item.product.imageURL }}" alt="Product image">
+														</a>
+													</figure>
+
+													<h3 class="product-title">
+														<a href="#">{{ order_item.product.name }}</a>
+													</h3><!-- End .product-title -->
+												</div><!-- End .product -->
+											</td>
+											<td class="price-col">₦{{ order_item.product.price|floatformat:2}}</td>
+											<td class="quantity-col">
+                                                <div class="cart-product-quantity">
+                                                    <!-- <td> -->
+                                                        <a href="{%  url 'index:removecart' order_item.id %}" class="update-cart"><i class="mr-2 icon-minus"></i></a>
+                                                        {{ order_item.quantity }}
+                                                        <a href="{%  url 'index:pluscart' order_item.id  %}"  class="update-cart"><i class="ml-2 icon-plus"></i></a>
+                                                    <!-- </td> -->
+                                                    <!-- <a href=""></a>
+                                                    <input type="number" class="form-control" 
+                                                    value="1" min="1" max="10" step="1" name="{{ order_item.quantity }}" data-decimals="0" required> -->
+                                                </div><!-- End .cart-product-quantity -->
+                                            </td>
+											<td class="total-col">₦  {% widthratio order_item.product.price 1 order_item.quantity %}</td>
+											<td class="remove-col"><button class="btn-remove"><a href="{%  url 'index:deletecart' order_item.id %}"><i class="icon-close"></i></a></button></td>
+										</tr>
+										{% empty %}
+										<tr>
+											<td colspan='5'>Your cart is empty</td>
+										</tr>
+                                        {% endfor %}
+									</tbody>
+								</table><!-- End .table table-wishlist -->
+
+	                			<div class="cart-bottom">
+			            			<div class="cart-discount">
+										<a href="{% url 'index:home'  %}" class="px-3 btn btn-outline-dark-2"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
+			            			</div>
+									<!-- End .cart-discount -->
+                                    <a href="{% url 'index:checkout' %}" class="btn btn-outline-primary-2 btn-order">PROCEED TO CHECKOUT</a>
+			            			
+		            			</div><!-- End .cart-bottom -->
+	                		</div><!-- End .col-lg-9 -->
+	                		
+	                	</div><!-- End .row -->
+	                </div><!-- End .container -->
+                </div><!-- End .cart -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+
+{%  endblock %}

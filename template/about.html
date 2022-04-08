@@ -1,0 +1,52 @@
+{%  extends 'base.html' %}
+{%  load static  %}
+
+
+{%  block body  %}
+
+        <main class="main">
+            <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">About us<span></span></h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{%  url 'index:home' %}">Home</a></li>
+                        <!-- <li class="breadcrumb-item"><a href="#">Pages</a></li> -->
+                        <li class="breadcrumb-item active" aria-current="page">About us </li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+                <div class="  pb-5 mb-6 mb-lg-8">
+                    <div class="container">
+                        <div class="row">
+                            {% for i in about %}
+                            <div class="col-lg-5 mb-3 mb-lg-0">
+                                <h2 class="title">{{  i.heading }}</h2><!-- End .title -->
+                                <p class="lead text-primary mb-3">
+                                    {{ i.body|safe }}
+                                </p>
+
+                                <a href="{% url 'index:blog'  %}" class="btn btn-sm btn-minwidth btn-outline-primary-2 mt-3">
+                                    <span>VIEW OUR NEWS</span>
+                                    <i class="icon-long-arrow-right"></i>
+                                </a>
+                            </div><!-- End .col-lg-5 -->
+
+                            <div class="col-lg-6 offset-lg-1">
+                                <div class="about-images">
+                                    <!-- <img src="{% static 'assets/images/solar/about (2).jpg' %}" alt="" class="about-img-front img-fluid"> -->
+                                    <img src="{{  i.image.url }}" alt="" class="about-img-back">-
+                                </div><!-- End .about-images -->
+                            </div><!-- End .col-lg-6 -->
+                            {%  endfor %}
+                        </div><!-- End .row -->
+                    </div><!-- End .container -->
+                </div><!-- End .bg-light-2 pt-6 pb-6 -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+{%  endblock body  %}    

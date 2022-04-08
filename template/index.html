@@ -1,0 +1,218 @@
+{%  extends 'base.html' %}
+{%  load static  %}
+
+
+{%  block body  %}
+
+        <main class="main">
+            
+            <div class="intro-slider-container">
+                <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl"
+                    data-owl-options='{"nav": false, "autoplay":true}'>
+                    {%  for i in slide  %}
+                    <div class="intro-slide"
+                        style="background-image: url({{ i.image.url  }});background-blend-mode:overlay; background-color: rgba(0,0,0, 0.56);">
+                        <div class="container intro-content">
+                            <h3 class="intro-subtitle">{{ i.subtitle }}</h3><!-- End .h3 intro-subtitle -->
+                            <h1 class="intro-title">
+                                {{  i.title|safe }}
+                            </h1><!-- End .intro-title -->
+                            <a href="category.html" class="btn btn-primary">
+                                <span>Shop Now</span>
+                                <i class="icon-long-arrow-right"></i>
+                            </a>
+                        </div><!-- End .container intro-content -->
+                    </div><!-- End .intro-slide -->
+                     {%  endfor %}
+                   
+
+                
+                </div><!-- End .owl-carousel owl-simple -->
+
+                <span class="slider-loader text-white"></span><!-- End .slider-loader -->
+            </div><!-- End .intro-slider-container -->
+
+
+             <section class="pt-5 pb-3">
+                <div class="container">
+                    <div class="row align-items-center ">
+                        {% for i in aboutus %}
+                        <div class="col-lg-12">
+                            <h2>{{ i.heading }}</h2>
+                            <p style="font-size: 30px;">
+                                {{ i.body|safe }}
+                            </p>
+                            
+                        </div>
+                        {%  endfor %}
+                    </div>
+                </div>
+             </section>
+
+
+             <section class="pt-5 pb-4">
+                <div class="icon-boxes-container">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="icon-box icon-box-side">
+                                    <span class="icon-box-icon text-dark">
+                                        <i class="icon-rocket"></i>
+                                    </span>
+                                    <div class="icon-box-content">
+                                        <h3 class="icon-box-title">FREE DELIVERY</h3>
+                                        <p>On Orders Over 2 Million Naira</p>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="icon-box icon-box-side">
+                                    <span class="icon-box-icon text-dark">
+                                        <i class="icon-rotate-left"></i>
+                                    </span>
+    
+                                    <div class="icon-box-content">
+                                        <h3 class="icon-box-title">NATIONWIDE SHIPPING</h3>
+                                        <p>Swift Delivery all over Nigeria</p>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="icon-box icon-box-side">
+                                    <span class="icon-box-icon text-dark">
+                                        <i class="icon-info-circle"></i>
+                                    </span>
+    
+                                    <div class="icon-box-content">
+                                        <h3 class="icon-box-title">QUESTIONS</h3>
+                                        <p>Call Us: 0816 170 1105</p>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="icon-box icon-box-side">
+                                    <span class="icon-box-icon text-dark">
+                                        <i class="icon-life-ring"></i>
+                                    </span>
+    
+                                    <div class="icon-box-content">
+                                        <h3 class="icon-box-title">We Support</h3>
+                                        <p>24/7 Online consultations</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </section>
+
+             <!-- <div class="mb-6"></div>End .mb-6 -->
+
+
+
+           <section style="background-color: #faf9f9; padding: 50px 0 50px 0;">
+                <div class="container pt-3">
+                    <div class="tab-content">
+                        
+                            <!-- <div class="products"> -->
+                                
+                                <div class="row justify-content-center">
+                                   
+                                    {% for item in nav_cats %}
+                                    <div class="col-12 col-md-4 col-lg-3 col-xl-6col">
+                                        <div class="product product-11 text-center">
+                                            <figure class="product-media">
+                                                <!-- <span class="product-label label-circle label-new {{ item.get_label_display }}-color">New</span> -->
+                                                <a href="{% url 'index:itemcategory' item.id %}">
+                                                    <img src="{{ item.image.url }}"
+                                                        alt="Product image" class="product-image object-cover img-fluid" >
+                                                    <img src="{{ item.image.url }}"
+                                                        alt="Product image" class="product-image-hover object-cover img-fluid">
+                                                </a>
+                                            </figure><!-- End .product-media -->
+                                            <div class="p-4 text-start">
+                                                <h3 class="product-title">{{ item.name }}</h3>
+                                                <a href="{% url 'index:itemcategory' item.id %}" style="font-size:16px;">
+                                                    View Product 
+                                                    <i class="icon-long-arrow-right"></i>
+                                                </a>
+                                                <!-- End .product-title -->
+                                            </div><!-- End .product-body -->
+                                        </div><!-- End .product -->
+                                    </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
+                                    {% endfor %}
+                                    
+                                </div><!-- End .row -->
+                            <!-- </div>End .products -->
+                        
+                    </div><!-- End .tab-content -->
+                </div><!-- End .container -->
+           </section>
+
+            
+
+           <section style="padding: 50px 0 50px  0;">
+                <div class="blog-posts">
+                    <div class="container">
+                        <h2 class="title text-center mb-3" style="font-size: 30px;">Our Blog</h2><!-- End .title-lg text-center -->
+
+                        <div class="owl-carousel owl-simple carousel-with-shadow" data-toggle="owl" data-owl-options='{
+                                "nav": false, 
+                                "dots": true,
+                                "items": 3,
+                                "margin": 20,
+                                "loop": false,
+                                "responsive": {
+                                    "0": {
+                                        "items":1
+                                    },
+                                    "600": {
+                                        "items":2
+                                    },
+                                    "992": {
+                                        "items":3
+                                    }
+                                }
+                            }'>
+
+                            {%  for blog in book_list  %}
+                            <article class="entry entry-display card-dashboard">
+                                <figure class="entry-media">
+                                    <a href="{%  url 'index:blogdetails' blog.id %}">
+                                        <img src="{{  blog.picture.url  }}" class="img-fluid object-cover" style="height:300px;" alt="image desc">
+                                    </a>
+                                </figure><!-- End .entry-media -->
+
+                                <div class="entry-body text-center">
+                                    <div class="entry-meta">
+                                        <a href="javascript:void()">{{  blog.post_date  }}</a>
+                                    </div><!-- End .entry-meta -->
+
+                                    <h3 class="entry-title">
+                                        <a href="{%  url 'index:blogdetails' blog.id %}">{{  blog.title  }}</a>
+                                    </h3><!-- End .entry-title -->
+
+                                    <div class="entry-content">
+                                        <a href="{%  url 'index:blogdetails' blog.id %}" class="read-more text-decoration-none">Continue Reading</a>
+                                    </div><!-- End .entry-content -->
+                                </div><!-- End .entry-body -->
+                            </article><!-- End .entry -->
+                            {%  endfor %}
+                            
+                        </div><!-- End .owl-carousel -->
+
+                        <div class="more-container text-center mt-2">
+                            <a href="{%  url 'index:blog' %}" class="btn btn-outline-darker btn-more"><span>View more articles</span><i
+                                    class="icon-long-arrow-right"></i></a>
+                        </div><!-- End .more-container -->
+                    </div><!-- End .container -->
+                </div><!-- End .blog-posts -->
+           </section>
+            
+        </main><!-- End .main -->
+
+
+{%  endblock body  %}   

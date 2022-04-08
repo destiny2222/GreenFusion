@@ -1,0 +1,161 @@
+{%  load cart_template_tags %}
+{%  load static %}
+<header class="header header-2 header-intro-clearance">
+    <div class="header-top">
+        <div class="container">
+            <div class="header-right pt-1 pb-1">
+                <ul class="top-menu d-flex  text-white">
+                    <li>
+                        <a href="{% url 'account_login' %}" >Sign in</a>
+                        <!-- <a href="#">Account</a> -->
+                        <ul>
+                            <li class="d-none d-lg-block"><a href="{% url 'account_login' %}">Sign in</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{% url 'account_signup' %}" >Sign up</a>
+                        <!-- <a href="#">Account</a> -->
+                        <ul>
+                            <li class="d-none d-lg-block"><a href="{% url 'account_signup' %}">Sign up</a></li>
+                        </ul>
+                    </li>
+                </ul><!-- End .top-menu -->
+            </div><!-- End .header-right -->
+
+        </div><!-- End .container -->
+    </div><!-- End .header-top -->
+
+    <div class="header-middle">
+        <div class="container">
+            <div class="header-left">
+                <button class="mobile-menu-toggler">
+                    <span class="sr-only">Toggle mobile menu</span>
+                    <i class="icon-bars"></i>
+                </button>
+
+                <a href="{%  url 'index:home'  %}" class="logo">
+                    <img src="{% static 'assets/images/solar/logo.png' %}" alt="Molla Logo" width="80" height="25">
+                </a>
+            </div><!-- End .header-left -->
+
+            <div class="header-center">
+                <div
+                    class="header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block">
+                    <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                    <form  action="{% url 'index:search' %}" method="post">
+                        {% csrf_token %}
+                        <div class="header-search-wrapper search-wrapper-wide">
+                            <label for="q" class="sr-only">Search</label>
+                            <input type="search" class="form-control" name="searched" placeholder="Search product ..." required>
+                            <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+                        </div><!-- End .header-search-wrapper -->
+                    </form>
+                </div><!-- End .header-search -->
+            </div>
+
+            <div class="header-right">
+                <div class="account">
+                    {%  if user.is_authenticated %}
+                    <a href="{% url 'index:dashboard' %}" title="My account">
+                        <div class="icon">
+                            <i class="icon-user"></i>
+                        </div>
+                        <p>Hi, {{  user.fullname|truncatechars:8 }}</p>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'index:dashboard' %}" title="My account">
+                        <div class="icon">
+                            <i class="icon-user"></i>
+                        </div>
+                    </a>
+                    {% endif %}
+                </div><!-- End .compare-dropdown -->
+
+                <div class="wishlist">
+                    <a href="{%  url 'index:wish' %}" title="Wishlist">
+                        <div class="icon">
+                            <i class="icon-heart-o"></i>
+                            <span class="wishlist-count badge">{{request.user|wish_count}}</span>
+                        </div>
+                        <p>Wishlist</p>
+                    </a>
+                </div><!-- End .compare-dropdown -->
+
+                <div class="dropdown cart-dropdown">
+                   
+                    <a href="{% url 'index:cart' %}" class="dropdown-toggle" >
+                        <div class="icon">
+                            <i class="icon-shopping-cart"></i>
+                            <span class="cart-count">{{request.user | cart_item_count}}</span>
+                        </div>
+                        <p>Cart</p>
+                    </a>
+                 
+                </div><!-- End .cart-dropdown -->
+            </div><!-- End .header-right -->
+        </div><!-- End .container -->
+    </div><!-- End .header-middle -->
+
+    <div class="header-bottom sticky-header">
+        <div class="container">
+            <div class="header-left">
+                <div class="dropdown category-dropdown">
+                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" data-display="static"
+                        title="Browse Categories">
+                        ALL DEPARTMENTS
+                    </a>
+
+                    <div class="dropdown-menu">
+                        <nav class="side-nav">
+                            {%  for i in nav_cats %}
+                            <ul class="menu-vertical sf-arrows">
+                                <li class="item-lead"><a href="{% url 'index:itemcategory' i.id %}">{{  i.name }}</a></li>
+                                <!-- <li class="item-lead"><a href="#">PV SOLAR PANELS</a></li>
+                                <li><a href="#">INVERTERS</a></li>
+                                <li><a href="#">BATTERIES & ACCESSORIES</a></li>
+                                <li><a href="#">CHARGE CONTROLLERS</a></li>
+                                <li><a href="#">COMBINER BOXES & BREAKERS</a></li>
+                                <li><a href="#">CABLES & WIRING</a></li>
+                                <li><a href="#">ENCLOSURES ELECTRICALS & SAFETY </a></li>
+                                <li><a href="#">MONITORS & METERING</a></li>
+                                <li><a href="#">SOLAR PANEL MOUNTS</a></li>
+                                <li><a href="#">VOLTAGE REGULATORS</a></li>
+                                <li><a href="#">CLEARANCE SALE</a></li> -->
+                            </ul><!-- End .menu-vertical -->
+                            {%  endfor %}
+                        </nav><!-- End .side-nav -->
+                    </div><!-- End .dropdown-menu -->
+                </div><!-- End .category-dropdown -->
+            </div><!-- End .header-left -->
+
+            <div class="header-center">
+                <nav class="main-nav">
+                    <ul class="menu sf-arrows ">
+                        <li class="megamenu-container active">
+                            <a href="{%  url 'index:home'  %}" class="text-uppercase">Home</a>
+                        </li>
+                        <li>
+                            <a href="{%  url 'index:about'  %}" class="text-uppercase">About Us</a>
+                        </li>
+                        <li>
+                            <a href="{%  url 'index:project' %}" class="text-uppercase">Project</a>
+                        </li>
+                        <li>
+                            <a href="{%  url 'index:blog' %}" class="text-uppercase">Blog</a>
+                        </li>
+                        <li>
+                            <a href="{%  url 'index:contact' %}" class="text-uppercase">Contact Us</a>
+                        </li>
+                        
+                    </ul><!-- End .menu -->
+                </nav><!-- End .main-nav -->
+            </div><!-- End .header-center -->
+            <div class="header-right">
+                <a href="#"><i class="la la-facebook"></i></a>
+                <a href="#"><i class="la la-twitter"></i></a>
+                <a href="#"><i class="la la-instagram"></i></a>
+            </div>
+        </div><!-- End .container -->
+    </div><!-- End .header-bottom -->
+</header><!-- End .header -->

@@ -1,0 +1,116 @@
+{%  extends 'base.html' %}
+{%  load static  %}
+
+
+{%  block body  %}
+
+        <main class="main">
+        	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">Blog <span>Single Post</span></h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Blog</a></li>
+                        <!-- <li class="breadcrumb-item active" aria-current="page">Default With Sidebar</li> -->
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+                <div class="container">
+                	<div class="row">
+                		<div class="col-lg-9">
+                            <article class="entry single-entry">
+                                <figure class="entry-media">
+                                    <img src="{{  object.picture.url }}" alt="image desc">
+                                </figure><!-- End .entry-media -->
+
+                                <div class="entry-body">
+                                    <div class="entry-meta">
+                                        <span class="entry-author">
+                                            by <a href="#">{{  object.author }}</a>
+                                        </span>
+                                        <span class="meta-separator">|</span>
+                                        <a href="#">{{  object.post_date }}</a>
+                                        <!-- <span class="meta-separator">|</span> -->
+                                        <!-- <a href="#">2 Comments</a> -->
+                                    </div><!-- End .entry-meta -->
+
+                                    <h2 class="entry-title">
+                                        {{  object.title  }}
+                                    </h2><!-- End .entry-title -->
+
+                                    <!-- <div class="entry-cats">
+                                        in <a href="#">Lifestyle</a>,
+                                        <a href="#">Shopping</a> -->
+                                    <!-- </div>End .entry-cats -->
+
+                                    <div class="entry-content editor-content">
+                                        <p>
+                                           {{ object.body|safe }} 
+                                        </p>
+
+                                    </div><!-- End .entry-content -->
+
+                                    
+                                </div><!-- End .entry-body -->
+                            </article><!-- End .entry -->
+                           
+                		</div><!-- End .col-lg-9 -->
+
+                		<aside class="col-lg-3">
+                			<div class="sidebar">
+                				<div class="widget widget-search">
+                                    <h3 class="widget-title">Search</h3><!-- End .widget-title -->
+
+                                    <form action="#">
+                                        <label for="ws" class="sr-only">Search in blog</label>
+                                        <input type="search" class="form-control" name="ws" id="ws" placeholder="Search in blog" required>
+                                        <button type="submit" class="btn"><i class="icon-search"></i><span class="sr-only">Search</span></button>
+                                    </form>
+                				</div><!-- End .widget -->
+
+                               
+                                <div class="widget">
+                                    <h3 class="widget-title">Recents Posts</h3><!-- End .widget-title -->
+                                     {%  for i in recents %}
+                                    <ul class="posts-list">
+                                        
+                                        <li>
+                                            <figure>
+                                                <a href="#">
+                                                    <img src="{{  i.picture.url }}" alt="post">
+                                                </a>
+                                            </figure>
+
+                                            <div>
+                                                <span>{{  i.post_date  }}</span>
+                                                <h4><a href="#">{{  i.title|truncatechars:20  }}</a></h4>
+                                            </div>
+                                        </li>
+                                        
+                                    </ul><!-- End .posts-list -->
+                                    {%  endfor %}
+                                </div><!-- End .widget -->
+
+                                
+                                <!-- <div class="widget widget-text">
+                                    <h3 class="widget-title">About Blog</h3
+
+                                    <div class="widget-text-content">
+                                        <p>Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, pulvinar nunc sapien ornare nisl.</p>
+                                    </div>
+                                </div>-->
+                                <!-- End .widget -->
+                			</div><!-- End .sidebar sidebar-shop -->
+                		</aside><!-- End .col-lg-3 -->
+                	</div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+        {%  endblock body  %}

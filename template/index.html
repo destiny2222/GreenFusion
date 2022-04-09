@@ -181,7 +181,7 @@
                             {%  for blog in book_list  %}
                             <article class="entry entry-display card-dashboard">
                                 <figure class="entry-media">
-                                    <a href="{%  url 'index:blogdetails' blog.id %}">
+                                    <a href="{%  url 'index:blogdetails' blog.slug %}">
                                         <img src="{{  blog.picture.url  }}" class="img-fluid object-cover" style="height:300px;" alt="image desc">
                                     </a>
                                 </figure><!-- End .entry-media -->
@@ -192,11 +192,11 @@
                                     </div><!-- End .entry-meta -->
 
                                     <h3 class="entry-title">
-                                        <a href="{%  url 'index:blogdetails' blog.id %}">{{  blog.title  }}</a>
+                                        <a href="{%  url 'index:blogdetails' blog.slug %}">{{  blog.title  }}</a>
                                     </h3><!-- End .entry-title -->
 
                                     <div class="entry-content">
-                                        <a href="{%  url 'index:blogdetails' blog.id %}" class="read-more text-decoration-none">Continue Reading</a>
+                                        <a href="{%  url 'index:blogdetails' blog.slug %}" class="read-more text-decoration-none">Continue Reading</a>
                                     </div><!-- End .entry-content -->
                                 </div><!-- End .entry-body -->
                             </article><!-- End .entry -->

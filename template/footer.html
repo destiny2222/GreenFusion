@@ -43,7 +43,7 @@
 
                         <ul class="widget-list">
                             <!-- <li><a href="#">Returns</a></li> -->
-                            <li><a href="">Log in</a></li>
+                            <li><a href="{% url 'index:login' %}">Log in</a></li>
                             <li><a href="#">Terms and conditions</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                         </ul><!-- End .widget-list -->
@@ -55,7 +55,7 @@
                         <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
 
                         <ul class="widget-list">
-                            <li><a href="">Sign up</a></li>
+                            <li><a href="{%  url 'index:register' %}">Sign up</a></li>
                             <li><a href="{%  url 'index:cart' %}">View Cart</a></li>
                             <li><a href="{%  url 'index:wish' %}">My Wishlist</a></li>
                             <!-- <li><a href="#">Track My Order</a></li> -->

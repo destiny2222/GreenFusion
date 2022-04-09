@@ -61,6 +61,12 @@ class BlogView(ListView):
     model = Blog
     template_name = "blog.html"
 
+
+def  BlogDetails(request, slug):
+
+    return render(request, 'single.html')
+    pass
+
 class BlogDetails(DetailView):
     model = Blog
     template_name = "single.html"
@@ -80,27 +86,27 @@ def store(request, slug):
 
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/login/')
 def wish_details(request):
     wish = Wishlist.objects.filter(user=request.user)
        
     context = {'wish':wish}
     return render(request, 'wishlist.html', context)    
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/login/')
 def WishlistView(request, id):
         wish_list = Product.objects.get(id=id)
         Wishlist.objects.create(product=wish_list, user=request.user)  
         return redirect('index:wish')
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/login/')
 def wishlist_increment(request, slug):
     qr = Wishlist.objects.get(user=request.user, id=slug)
     qr.quantity = qr.quantity + 1
     qr.save()
     return redirect('index:wish')
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/login/')
 def wishlist_decrement(request, slug):
     qr = Wishlist.objects.get(user=request.user, id=slug)
     if qr.quantity >=1:
@@ -108,26 +114,26 @@ def wishlist_decrement(request, slug):
         qr.save()
     return redirect('index:wish')
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/login/')
 def wish_delete(request, slug):
     qs = Wishlist.objects.get(user=request.user, id=slug)
     qs.delete()
     return redirect('index:wish')
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/login/')
 def cart(request, id):
     add = Product.objects.get(id=id)
     CartModel.objects.create(product=add, user=request.user, quantity=1)
     return redirect('index:cart')
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/login/')
 def cart_increment(request, id):
     qs = CartModel.objects.get(user=request.user, id=id, order=False)
     qs.quantity = qs.quantity + 1
     qs.save()
     return redirect('index:cart')
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/login/')
 def cart_decrement(request, id):
     qs = CartModel.objects.get(user=request.user, id=id, order=False)
     if qs.quantity >=1:
@@ -135,19 +141,19 @@ def cart_decrement(request, id):
         qs.save()
     return redirect('index:cart')
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/login/')
 def cart_delete(request, id):
     qs = CartModel.objects.get(user=request.user, id=id, order=False)
     qs.delete()
     return redirect('index:cart')
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/login/')
 def cart_details(request):
     qs = CartModel.objects.filter(user=request.user, order=False)
     context = {'qs':qs}
     return render(request, 'cart.html', context)
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/login/')
 def checkout(request):
     cartcheck = CartModel.objects.filter(user=request.user, order=False)
     amount = '0'

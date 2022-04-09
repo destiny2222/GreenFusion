@@ -35,12 +35,15 @@
 							    	<form action="#" method="post">
                                         {% csrf_token %}
 							    		<div class="form-group">
-							    			<!-- <label for="register-email-2">Your Username *</label> -->
-							    			<!-- <input type="text" class="form-control" id="register-email-2" name="register-email" required> -->
+                                            {{  form.first_name|as_crispy_field }}
+                                        </div><!-- End .form-group -->
+							    		<div class="form-group">
+                                            {{  form.last_name|as_crispy_field }}
+                                        </div><!-- End .form-group -->
+							    		<div class="form-group">
                                             {{  form.username|as_crispy_field }}
                                         </div><!-- End .form-group -->
 							    		<div class="form-group">
-							    			<label for="register-email-2">Your email address *</label>
 							    			<!-- <input type="email" class="form-control" id="register-email-2" name="register-email" required> -->
 							    		    {{  form.email|as_crispy_field }}
                                         </div><!-- End .form-group -->

@@ -1,7 +1,7 @@
 from os import name
 from django.urls import path
 from . import views
-# from acc_user.views import logout_View,LoginView,RegisterView,profileView,dashboard_view,other_user_profile
+from acc_user.views import logout_View,LoginView,RegisterView,profileView,dashboard_view,other_user_profile
 
 app_name = 'index'
 
@@ -10,11 +10,13 @@ urlpatterns = [
     path('about/', views.AboutView, name="about"),
     path('dashboard/', views.dashboard, name='dashboard'),
     
-    # path('logout/', logout_View, name='logout'),
-    # path('profile', profileView, name='profile' ),
-    # path('register/', RegisterView, name='register'),
-    # path('dashboard/', dashboard_view, name='dashboard' ),
-    # path('other_user/<slug>/', other_user_profile, name='other_user'),
+    path('login/', LoginView, name='login'),
+    path('logout/', logout_View, name='logout'),
+    path('profile', profileView, name='profile' ),
+    path('register/', RegisterView, name='register'),
+    path('dashboard/', dashboard_view, name='dashboard' ),
+    path('other_user/<slug>/', other_user_profile, name='other_user'),
+
     path('search', views.search, name="search"),
     path('product/<slug>/', views.store, name="product"),
     path('addcart/<int:id>/', views.cart, name="addcart"),

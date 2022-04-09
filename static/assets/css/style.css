@@ -580,6 +580,11 @@ blockquote.text-white cite span {
 .header-top a {
   color: inherit;
 }
+
+.header-top a:hover{
+   color: #ffffff !important;
+}
+
 .header-top a:hover,
 .header-top a:focus {
   color: #c96;

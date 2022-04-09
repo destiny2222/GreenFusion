@@ -27,7 +27,7 @@
                 		<div class="col-lg-4">
                             <article class="entry card02">
                                 <figure class="entry-media">
-                                    <a href="{%  url 'index:blogdetails' object.id %}">
+                                    <a href="{%  url 'index:blogdetails' object.pk %}">
                                         <img src="{{ object.picture.url }}"  class="img-fluid object-cover" style="height:300px;" alt="image desc">
                                     </a>
                                 </figure><!-- End .entry-media -->
@@ -35,10 +35,10 @@
                                 <div class="entry-body p-4">
                                     <div class="entry-meta">
                                         <span class="entry-author">
-                                            by <a href="{%  url 'index:blogdetails' object.id %}">{{  object.author }}</a>
+                                            by <a href="{%  url 'index:blogdetails' object.pk %}">{{  object.author }}</a>
                                         </span>
                                         <span class="meta-separator">|</span>
-                                        <a href="{%  url 'index:blogdetails' object.id %}">{{  object.post_date }}</a>
+                                        <a href="{%  url 'index:blogdetails' object.pk %}">{{  object.post_date }}</a>
                                         <!-- <span class="meta-separator">|</span>
                                         <a href="#">2 Comments</a> -->
                                     </div><!-- End .entry-meta -->

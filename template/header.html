@@ -6,17 +6,17 @@
             <div class="header-right pt-1 pb-1">
                 <ul class="top-menu d-flex  text-white">
                     <li>
-                        <a href="{% url 'account_login' %}" >Sign in</a>
+                        <a href="{%  url 'index:login'  %}" >Login</a>
                         <!-- <a href="#">Account</a> -->
                         <ul>
-                            <li class="d-none d-lg-block"><a href="{% url 'account_login' %}">Sign in</a></li>
+                            <li class="d-none d-lg-block"><a href="{%  url 'index:login'  %}">Login</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="{% url 'account_signup' %}" >Sign up</a>
+                        <a href="{%  url 'index:register'  %}" >Register</a>
                         <!-- <a href="#">Account</a> -->
                         <ul>
-                            <li class="d-none d-lg-block"><a href="{% url 'account_signup' %}">Sign up</a></li>
+                            <li class="d-none d-lg-block"><a href="{%  url 'index:register'  %}">Register</a></li>
                         </ul>
                     </li>
                 </ul><!-- End .top-menu -->
@@ -60,7 +60,7 @@
                         <div class="icon">
                             <i class="icon-user"></i>
                         </div>
-                        <p>Hi, {{  user.fullname|truncatechars:8 }}</p>
+                        <p>Hi, {{  user.first_name }}</p>
                     </a>
                     {% else %}
                     <a href="{% url 'index:dashboard' %}" title="My account">

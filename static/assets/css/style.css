@@ -585,6 +585,12 @@ blockquote.text-white cite span {
    color: #ffffff !important;
 }
 
+@media (max-width:768px) {
+  .header-top a:hover{
+    color: #ffffff !important;
+ }
+}
+
 .header-top a:hover,
 .header-top a:focus {
   color: #c96;

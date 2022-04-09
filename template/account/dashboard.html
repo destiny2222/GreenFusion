@@ -94,19 +94,25 @@
 								    	</p>
 										<div class="container">
 											<div class="row">
-												<div class="col-sm-4">
+												<div class="col-sm-4 show-none">
 													<div class="card  card-dashboard p-4">
 														<div class="card-header ">
 															ACCOUNT DETAILS
+															<a href="" class="float-right" onclick="showform()" style="font-size:20px;">
+																<i class="la la-edit"></i>
+															</a>
 														</div>
 														<hr>
-														<h3>
-															{{  user.fullname }}
+														<h3 style="font-size:20px;">
+															{{  user.first_name }} &nbsp; {{  user.last_name }} 
 														</h3>
 														<p>
 														<p>{{ user.email }}</p>
 														<a href="{% url 'account_reset_password' %}">CHANGE YOUR PASSWORD</a></p>
 													</div>
+												</div>
+												<div class="col-sm-4 show" style="display: none;">
+                                                     happy
 												</div>
 											</div>
 										</div>
@@ -130,8 +136,8 @@
 														be up to date on an order's status, and keep track
 														of the orders you have previously made.
 													  </p>
-													  <a href="{% url 'account_signup' %}" class="btn btn-primary">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													  <span> Have Account <a href="{% url 'account_login' %}">Login</a></span> 
+													  <a href="{% url 'index:register' %}" class="btn btn-primary">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													  <span> Have Account <a href="{% url 'index:login' %}">Login</a></span> 
 													</div>
 												  </div>
 												</div>
@@ -163,8 +169,8 @@
 														be up to date on an order's status, and keep track
 														of the orders you have previously made.
 													  </p>
-													  <a href="{% url 'account_signup' %}" class="btn btn-primary">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													  <span> Have Account <a href="{% url 'account_login' %}">Login</a></span> 
+													  <a href="{% url 'index:register' %}" class="btn btn-primary">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													  <span> Have Account <a href="{% url 'index:login' %}">Login</a></span> 
 													</div>
 												  </div>
 												</div>
@@ -243,8 +249,8 @@
 														be up to date on an order's status, and keep track
 														of the orders you have previously made.
 													  </p>
-													  <a href="{% url 'account_signup' %}" class="btn btn-primary">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													  <span> Have Account <a href="{% url 'account_login' %}">Login</a></span> 
+													  <a href="{% url 'index:register' %}" class="btn btn-primary">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													  <span> Have Account <a href="{% url 'index:login' %}">Login</a></span> 
 													</div>
 												  </div>
 												</div>
@@ -301,8 +307,8 @@
 													be up to date on an order's status, and keep track
 													of the orders you have previously made.
 												</p>
-												<a href="{% url 'account_signup' %}" class="btn btn-primary">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<span> Have Account <a href="{% url 'account_login' %}">Login</a></span> 
+												<a href="{% url 'index:register' %}" class="btn btn-primary">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<span> Have Account <a href="{% url 'index:login' %}">Login</a></span> 
 												</div>
 											</div>
 											</div>
@@ -317,16 +323,20 @@
 											{% csrf_token %}
 			                				<div class="row">
 			                					<div class="col-sm-6">
-			                						<label>Full Name *</label>
-			                						<input type="text" class="form-control" name="fullname" id="fullname" value="{{ user.fullname }}" >
+			                						<label>First Name *</label>
+			                						<input type="text" class="form-control" name="first_name" id="first_name" value="{{ user.first_name }}" >
+			                					</div><!-- End .col-sm-6 -->
+			                					<div class="col-sm-6">
+			                						<label>Last Name *</label>
+			                						<input type="text" class="form-control" name="last_name" id="last_name" value="{{ user.last_name }}" >
 			                					</div><!-- End .col-sm-6 -->
 
-			                					<!-- <div class="col-sm-6">
+			                					<div class="col-sm-6">
 			                						<label>Username *</label>
 			                						<input type="text" class="form-control" id="username" name="username"  value="{{ user.username }}">
-			                					</div> -->
+			                					</div>
 			                					<div class="col-sm-6">
-			                						<label>Phone Number *</label>
+			                						<label>Phone Number(Option) *</label>
 			                						<input type="text" class="form-control" id="phonenumber" name="phonenumber"  value="{{ user.phonenumber }}">
 			                					</div><!-- End .col-sm-6 -->
 			                					<div class="col-sm-12">
@@ -374,5 +384,11 @@
                 </div><!-- End .dashboard -->
             </div><!-- End .page-content -->
         </main><!-- End .main -->
+
+		<script>
+          var edit = document.querySelector(".show-none").addEventListener(function showfom(showform) {
+			  
+		  })
+		</script>
 
 {% endblock  %}

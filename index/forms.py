@@ -68,7 +68,7 @@ class EditAccount(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = [
-            'fullname',
+            # 'fullname',
             'phonenumber',
             'email',
             # 'username'

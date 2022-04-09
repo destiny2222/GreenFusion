@@ -157,6 +157,33 @@ def checkout(request):
     context = {'cartcheck':cartcheck, 'amount':amount}
     return render(request, 'checkout.html',context,{})
 
+# def checkout(request):
+#     cartcheck = CartModel.objects.filter(user=request.user, order=False)
+#     if request.method=='POST':
+#         full_name=request.POST['full_name']
+#         address=request.POST['address']
+#         address2=request.POST['address2']
+#         city=request.POST['city']
+#         phone=request.POST['phone']
+#         state=request.POST['state']
+#         zipcode=request.POST['zipcode']
+#         country=request.POST['country']
+#         email=request.POST['email']
+#         user=ShippingAddress.objects.create(
+#             full_name=full_name,address=address,
+#             phone=phone,state=state,
+#             address2=address2, email=email,
+#             city=city,zipcode=zipcode,country=country)
+#         user.save()
+#         return render(request, 'payment.html',{"email":email,'phone':phone,})
+#     else:
+#         amount = '0'
+#         for i in cartcheck:
+#             print(float(amount) + (float(i.product.price) * float(i.quantity) ))
+#             amount = float(amount) + (float(i.product.price) * float(i.quantity) )
+#     context = {'cartcheck':cartcheck, 'amount':amount}
+#     return render(request, 'checkout.html',context)
+
 
 
 def ContactView(request):

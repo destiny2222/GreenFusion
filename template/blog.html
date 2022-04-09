@@ -23,38 +23,33 @@
             <div class="page-content">
                 <div class="container">
                 	<div class="row">
-                        {%  for object in object_list %}
+                        {%  for i in blog %}
                 		<div class="col-lg-4">
                             <article class="entry card02">
                                 <figure class="entry-media">
-                                    <a href="{%  url 'index:blogdetails' object.pk %}">
-                                        <img src="{{ object.picture.url }}"  class="img-fluid object-cover" style="height:300px;" alt="image desc">
+                                    <a href="javascript:void()">
+                                        <img src="{{ i.picture.url }}"  class="img-fluid object-cover" style="height:300px;" alt="image desc">
                                     </a>
                                 </figure><!-- End .entry-media -->
 
                                 <div class="entry-body p-4">
                                     <div class="entry-meta">
                                         <span class="entry-author">
-                                            by <a href="{%  url 'index:blogdetails' object.pk %}">{{  object.author }}</a>
+                                            by <a href="javascript:void()">{{  i.author }}</a>
                                         </span>
                                         <span class="meta-separator">|</span>
-                                        <a href="{%  url 'index:blogdetails' object.pk %}">{{  object.post_date }}</a>
+                                        <a href="javascript:void()">{{  i.created }}</a>
                                         <!-- <span class="meta-separator">|</span>
                                         <a href="#">2 Comments</a> -->
                                     </div><!-- End .entry-meta -->
 
                                     <h2 class="entry-title">
-                                        <a href="{%  url 'index:blogdetails' object.id %}">{{  object.title }}</a>
+                                        <a href="{%  url 'index:blogdetails' i.slug  %}">{{  i.title }}</a>
                                     </h2><!-- End .entry-title -->
 
-                                    <!-- <div class="entry-cats">
-                                        in <a href="#">Lifestyle</a>,
-                                        <a href="#">Shopping</a>
-                                    </div> -->
-
                                     <div class="entry-content">
-                                        <p>{{  object.body|safe|truncatechars:70  }}</p>
-                                        <a href="{%  url 'index:blogdetails' object.id  %}" class="read-more">Continue Reading</a>
+                                        <p>{{  i.body|safe|truncatechars:70  }}</p>
+                                        <a href="{%  url 'index:blogdetails' i.slug  %}" class="read-more">Continue Reading</a>
                                     </div><!-- End .entry-content -->
                                 </div><!-- End .entry-body -->
                             </article><!-- End .entry -->

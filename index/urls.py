@@ -32,9 +32,9 @@ urlpatterns = [
     path('minuwish/<slug>/', views.wishlist_decrement , name="removewish"),
     path('deletewish/<int:slug>/', views.wish_delete , name="deletewish"),
     
-    path('blog/', views.BlogView.as_view(), name='blog'),
+    path('blog/', views.BlogView, name='blog'),
     path('contact/', views.ContactView, name='contact'),
-    path('blogdetails/<pk>/', views.BlogDetails.as_view(), name='blogdetails'),
+    path('blogdetails/<slug:slug>', views.BlogDetails, name='blogdetails'),
     path('checkout/', views.checkout, name="checkout"),
     # path('wish', views.WishlistView, name='wishlist'),
     path('category/<int:id>', views.getCategoryItems, name='itemcategory'),

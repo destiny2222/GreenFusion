@@ -4,6 +4,7 @@ from .forms import CheckoutForm, EditAccount,FeedbackForm
 from django.shortcuts import get_object_or_404, render,redirect
 from django.views.generic import ListView, DetailView, TemplateView
 from .models import *
+from django.core.paginator import Paginator , PageNotAnInteger , EmptyPage
 from django.contrib import messages
 import environ, math, random, requests
 from django.contrib.auth.decorators import login_required
@@ -57,26 +58,48 @@ def AboutView(request):
 
     
 
-class BlogView(ListView):
-    model = Blog
-    template_name = "blog.html"
+# class BlogView(ListView):
+#     model = Blog
+#     template_name = "blog.html"
 
 
-def  BlogDetails(request, slug):
+def  BlogView(request):
+    blog_list = Blog.objects.all()
+    paginator = Paginator(blog_list, 20)
+    page = request.GET.get('page')
 
-    return render(request, 'single.html')
-    pass
+    try:
+        blog = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+        blog = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        blog = paginator.page(paginator.num_pages)
+    
+    context = {
+        'blog':blog,
+        'page':page,
+       
+    }
+    return render(request, 'blog.html', context)
 
-class BlogDetails(DetailView):
-    model = Blog
-    template_name = "single.html"
+def BlogDetails(request, slug):
+    recents = Blog.objects.all().order_by('-id')[:5]
+    details = get_object_or_404(Blog, slug=slug)
+    context = {'recents':recents, 'post':details}
+    return render(request, 'single.html', context)
 
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        context['recents'] = Blog.objects.all().order_by('-id')[:5]
-        return context    
+# class BlogDetails(DetailView):
+#     model = Blog
+#     template_name = "single.html"
+
+#     def get_context_data(self, **kwargs):
+#         # Call the base implementation first to get a context
+#         context = super().get_context_data(**kwargs)
+#         # Add in a QuerySet of all the books
+#         context['recents'] = Blog.objects.all().order_by('-id')[:5]
+#         return context    
 
 
 def store(request, slug):

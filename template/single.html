@@ -7,14 +7,14 @@
         <main class="main">
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container">
-        			<h1 class="page-title">Blog <span>Single Post</span></h1>
+        			<h1 class="page-title">Blog <span>{{ post.title }}</span></h1>
         		</div><!-- End .container -->
         	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Blog</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'index:home' %}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">{{ post.title }}</a></li>
                         <!-- <li class="breadcrumb-item active" aria-current="page">Default With Sidebar</li> -->
                     </ol>
                 </div><!-- End .container -->
@@ -26,22 +26,22 @@
                 		<div class="col-lg-9">
                             <article class="entry single-entry">
                                 <figure class="entry-media">
-                                    <img src="{{  object.picture.url }}" alt="image desc">
+                                    <img src="{{  post.picture.url }}" alt="image desc">
                                 </figure><!-- End .entry-media -->
 
                                 <div class="entry-body">
                                     <div class="entry-meta">
                                         <span class="entry-author">
-                                            by <a href="#">{{  object.author }}</a>
+                                            by <a href="#">{{  post.author }}</a>
                                         </span>
                                         <span class="meta-separator">|</span>
-                                        <a href="#">{{  object.post_date }}</a>
+                                        <a href="#">{{  post.created }}</a>
                                         <!-- <span class="meta-separator">|</span> -->
                                         <!-- <a href="#">2 Comments</a> -->
                                     </div><!-- End .entry-meta -->
 
                                     <h2 class="entry-title">
-                                        {{  object.title  }}
+                                        {{  post.title  }}
                                     </h2><!-- End .entry-title -->
 
                                     <!-- <div class="entry-cats">
@@ -51,7 +51,7 @@
 
                                     <div class="entry-content editor-content">
                                         <p>
-                                           {{ object.body|safe }} 
+                                           {{ post.body|safe }} 
                                         </p>
 
                                     </div><!-- End .entry-content -->

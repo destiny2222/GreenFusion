@@ -18,7 +18,7 @@ urlpatterns = [
     path('other_user/<slug>/', other_user_profile, name='other_user'),
 
     path('search', views.search, name="search"),
-    path('product/<slug>/', views.store, name="product"),
+    path('product/<slug:slug>/', views.store, name="product"),
     path('addcart/<int:id>/', views.cart, name="addcart"),
     path('cart/', views.cart_details, name="cart"),
     path('pluscart/<int:id>/', views.cart_increment , name="pluscart"),
@@ -36,7 +36,6 @@ urlpatterns = [
     path('contact/', views.ContactView, name='contact'),
     path('blogdetails/<slug:slug>', views.BlogDetails, name='blogdetails'),
     path('checkout/', views.checkout, name="checkout"),
-    # path('wish', views.WishlistView, name='wishlist'),
-    path('category/<int:id>', views.getCategoryItems, name='itemcategory'),
+    path('category/<slug:slug>', views.getCategoryItems, name='itemcategory'),
     path('project/', views.projectView.as_view(), name='project')
 ]

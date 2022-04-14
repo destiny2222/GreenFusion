@@ -1,3 +1,4 @@
+from tkinter.tix import Tree
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django_countries.fields import CountryField
@@ -20,9 +21,16 @@ class CustomUser(AbstractUser):
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
+    created = models.DateTimeField(auto_now_add=True, blank=True, null=True, unique=True)
     image = models.FileField()
+    slug = models.SlugField(default='', null=True, blank=True) 
+      
     def __str__(self):
-        return self.name      
+        return self.name 
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name) + '-' + slugify(self.created)
+        super(Category, self).save(*args, **kwargs)      
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
@@ -30,9 +38,15 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2)
     digital = models.BooleanField(default=False,null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=Tree, null=True, blank=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name) + '-' + slugify(self.created)
+        super(Product, self).save(*args, **kwargs)
+    
 
     @property
     def imageURL(self):
@@ -41,6 +55,7 @@ class Product(models.Model):
         except:
             url = ''
         return url
+
 
 
 class CartModel(models.Model):
@@ -112,33 +127,33 @@ class OrderItem(models.Model):
             
 
 
-class ShippingAddress(models.Model):
-    customer = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-    full_name = models.CharField(max_length=60)
-    # last_name = models.CharField(max_length=60)
-    address = models.CharField(max_length=200, null=False)
-    address2 = models.CharField(max_length=200, null=False)
-    city = models.CharField(max_length=200, null=False)
-    country = CountryField(multiple=False)
-    state = models.CharField(max_length=200, null=False)
-    zipcode = models.CharField(max_length=200, null=False)
-    email = models.EmailField()
-    phone = models.CharField(max_length=11, null=False)
-    default = models.BooleanField(default=False)
-    date_added = models.DateTimeField(auto_now_add=True)
+# class ShippingAddress(models.Model):
+#     customer = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
+#     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+#     full_name = models.CharField(max_length=60)
+#     # last_name = models.CharField(max_length=60)
+#     address = models.CharField(max_length=200, null=False)
+#     address2 = models.CharField(max_length=200, null=False)
+#     city = models.CharField(max_length=200, null=False)
+#     country = CountryField(multiple=False)
+#     state = models.CharField(max_length=200, null=False)
+#     zipcode = models.CharField(max_length=200, null=False)
+#     email = models.EmailField()
+#     phone = models.CharField(max_length=11, null=False)
+#     default = models.BooleanField(default=False)
+#     date_added = models.DateTimeField(auto_now_add=True)
 
-    # def __str__(self):
-    #     return self.customer
+#     # def __str__(self):
+#     #     return self.customer
 
-    class Meta:
-        ordering = ('-customer', )
+#     class Meta:
+#         ordering = ('-customer', )
 
-    def __str__(self):
-        return 'Order {}'.format(self.id)
+#     def __str__(self):
+#         return 'Order {}'.format(self.id)
 
-    def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all())    
+#     def get_total_cost(self):
+#         return sum(item.get_cost() for item in self.items.all())    
 
 
 class Blog(models.Model):

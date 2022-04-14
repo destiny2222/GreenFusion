@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'Homepage',
     'Aboutpage',
+
 ]
 
 # CRISPY FORMS
@@ -145,6 +146,8 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+PAYSTACK_SECRET_KEY = os.environ.get('sk_test_a4ea6241f774807d6176c95ba7ea1f482a9a0aa7')
+PAYSTACK_PUBLIC_KEY  = os.environ.get('pk_test_d47ab5ef6999cd57ed90dfec60b7afcb241c3c48')
 
 
 SITE_ID = 1

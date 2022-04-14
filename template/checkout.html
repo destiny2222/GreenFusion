@@ -19,7 +19,7 @@
 		<div class="container">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="{%  url 'index:home'  %}">Home</a></li>
-				<li class="breadcrumb-item"><a href="#">Shop</a></li>
+				<!-- <li class="breadcrumb-item"><a href="javascript:void()">Shop</a></li> -->
 				<li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
 			</ol>
 		</div><!-- End .container -->
@@ -32,38 +32,32 @@
                     {% csrf_token %}
 					<!-- <p>Shipping Information:</p> -->
 					<div id="user-info" class="row">
-						<div class="form-field col-lg-6">
-							<input required class="form-control" type="text" name="full_name" id="full_name" placeholder="Name..">
-							
+						<div class="col-lg-6">
+							<input type="text" class="form-control" name="full_name" id="full_name" placeholder="Full Name.....">
 						</div>
-						<div class="form-field col-lg-6">
-							<input required class="form-control" type="email" name="email" id="email" placeholder="Email..">
-							
-						</div>
-
-						<div class="col-lg-12">
-							<input class="form-control" type="text" name="address_1" id="address_1" placeholder="Address..">
-							
+						<div class="col-lg-6">
+							<input class="form-control" type="text" name="email" id="email" placeholder="Email address....">
 						</div>
 						<div class="col-lg-12">
-							<input class="form-control" type="text" name="address_2"  id="address_2" placeholder="address 2..">
-							
+							<input class="form-control" type="text" name="address" id="address_1" placeholder="Address..">
 						</div>
 						<div class="col-lg-12">
-							<input class="form-control" type="text" name="country" id="country" placeholder="">
-							
+							<input class="form-control" type="text" name="address2" id="address_2" placeholder="Address2..">
+						</div>
+						<div class="col-lg-6 ">
+							<input class="form-control" type="text" name="country" id="country" placeholder="country..">
+						</div>
+						<div class="col-lg-6 ">
+							<input class="form-control" type="text" name="city" id="city" placeholder="City..">
 						</div>
 						<div class="col-lg-6 ">
 							<input class="form-control" type="text" name="state" id="state" placeholder="State..">
-							
 						</div>
 						<div class="col-lg-6 ">
-							<input class="form-control" type="text" name="city" id="city" placeholder="city..">
-							
+							<input class="form-control" type="text" name="zipcode" id="zipcode" placeholder="Zip code..">
 						</div>
 						<div class="col-lg-6 ">
-							<input class="form-control" type="text" name="zipcode" id="zipcode" placeholder="zipcode..">
-							
+							<input class="form-control" type="text" name="phone" id="phone" placeholder="phone number..">
 						</div>
 
 					</div>
@@ -73,7 +67,7 @@
 					<button type="submit" id="submit" data-secret="{{order.get_cart_total}}" 
 					   class="btn btn-primary w-100 fw-bold">Pay Now ₦{{order.get_cart_total}}</button> -->
 					<!-- <a href="" class="btn btn-success btn-block"></a> -->
-					<input id="submit"  type="submit"  class="btn btn-success btn-block mb-5"  value="Place Order">
+					<input id="submit"  type="submit" class="btn btn-success btn-block mb-5" value="Proceed to Payment">
 				</form>
 			
 			</div>
@@ -114,55 +108,9 @@
 		</div>
 	</div>
 
- <script>
-	 document.addEventListener("DOMContentLoaded", (event) => {
-  // Add an event listener for when the user clicks the submit button to pay
-    document.getElementById("submit").addEventListener("click", (e) => {
-      e.preventDefault();
-      const PBFKey = "FLWPUBK_TEST-5d7a3aa9000594cbc0eee175b520e6b6-X"; // paste in the public key from your dashboard here
-      const txRef = ''+Math.floor((Math.random() * 1000000000) + 1); //Generate a random id for the transaction reference
-      const email = document.getElementById('email').value;
-	  const amount= document.getElementById('amount').innerHTML;
-      var fullname= document.getElementById('full_name').value;
-      var address1= document.getElementById('address_1').value;
-      var address2= document.getElementById('address_2').value;
-      var country= document.getElementById('country').value;
-      var state= document.getElementById('state').value;
-      var address1= document.getElementById('zipcode').value;
-      
-
-    //   console.log(amount, 'okayyyf')
-      
-      
-     
-
-      // getpaidSetup is Rave's inline script function. it holds the payment data to pass to Rave.
-  getpaidSetup({
-      PBFPubKey: PBFKey,
-      customer_email: email,
-      amount:{{  amount }},
-      currency: "NGN",  // Select the currency. leaving it empty defaults to NGN
-      txref: txRef, // Pass your UNIQUE TRANSACTION REFERENCE HERE.
-  
-      onclose: function() {},
-      callback: function(response) {
-          flw_ref = response.tx.flwRef;// collect flwRef returned and pass to a server page to complete status check.
-          console.log("This is the response returned after a charge", response);
-          if(response.tx.chargeResponse =='00' || response.tx.chargeResponse == '0') {
-          // redirect to a success page
-          } else {
-          // redirect to a failure page.
-          }
-      }
-    });
-  });
-});
-</script>
-<script type="text/javascript" src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> 
 </main>
 
-
-
+{%  include 'payment.html' %}
 
 
 

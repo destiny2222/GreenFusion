@@ -1,6 +1,5 @@
 from django.conf import settings
-from importlib_metadata import email
-from .forms import CheckoutForm, EditAccount,FeedbackForm
+from .forms import  EditAccount,FeedbackForm
 from django.shortcuts import get_object_or_404, render,redirect
 from django.views.generic import ListView, DetailView, TemplateView
 from .models import *
@@ -9,7 +8,7 @@ from django.contrib import messages
 import environ, math, random, requests
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse, HttpResponse, request
+from django.http import HttpRequest, JsonResponse, HttpResponse, request
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from  Homepage.models  import *
@@ -21,6 +20,8 @@ from django.core.mail import mail_admins,send_mail
 env = environ.Env()
 environ.Env.read_env()
 
+# from solar.settings import PAYSTACK_PUBLIC_KEY
+
 
 # Create your views here.
 
@@ -30,8 +31,8 @@ def products(request):
     }
     return render(request, "products.html", context)
 
-def getCategoryItems(request, id):
-    category1 = get_object_or_404(Category, id=id)
+def getCategoryItems(request, slug):
+    category1 = get_object_or_404(Category, id=slug)
     items = Product.objects.filter(category=category1)
     context = {'items':items}
     return render(request, 'product.html', context)
@@ -58,9 +59,7 @@ def AboutView(request):
 
     
 
-# class BlogView(ListView):
-#     model = Blog
-#     template_name = "blog.html"
+
 
 
 def  BlogView(request):
@@ -90,16 +89,7 @@ def BlogDetails(request, slug):
     context = {'recents':recents, 'post':details}
     return render(request, 'single.html', context)
 
-# class BlogDetails(DetailView):
-#     model = Blog
-#     template_name = "single.html"
-
-#     def get_context_data(self, **kwargs):
-#         # Call the base implementation first to get a context
-#         context = super().get_context_data(**kwargs)
-#         # Add in a QuerySet of all the books
-#         context['recents'] = Blog.objects.all().order_by('-id')[:5]
-#         return context    
+   
 
 
 def store(request, slug):
@@ -186,32 +176,34 @@ def checkout(request):
     context = {'cartcheck':cartcheck, 'amount':amount}
     return render(request, 'checkout.html',context,{})
 
+# @login_required(login_url='/login/')
 # def checkout(request):
-#     cartcheck = CartModel.objects.filter(user=request.user, order=False)
+#     cartcheck = CartModel.objects.filter(user=request.user, order=False) 
+#     amount = '0'
+#     for i in cartcheck:
+#         # print(float(amount) + (float(i.product.price) * float(i.quantity) ))
+#         amount = float(amount) + (float(i.product.price) * float(i.quantity) )       
+#     payment_form = CheckoutForm(request.POST) 
 #     if request.method=='POST':
-#         full_name=request.POST['full_name']
-#         address=request.POST['address']
-#         address2=request.POST['address2']
-#         city=request.POST['city']
-#         phone=request.POST['phone']
-#         state=request.POST['state']
-#         zipcode=request.POST['zipcode']
-#         country=request.POST['country']
-#         email=request.POST['email']
-#         user=ShippingAddress.objects.create(
-#             full_name=full_name,address=address,
-#             phone=phone,state=state,
-#             address2=address2, email=email,
-#             city=city,zipcode=zipcode,country=country)
-#         user.save()
-#         return render(request, 'payment.html',{"email":email,'phone':phone,})
-#     else:
-#         amount = '0'
-#         for i in cartcheck:
-#             print(float(amount) + (float(i.product.price) * float(i.quantity) ))
-#             amount = float(amount) + (float(i.product.price) * float(i.quantity) )
-#     context = {'cartcheck':cartcheck, 'amount':amount}
-#     return render(request, 'checkout.html',context)
+#         if payment_form.is_valid():
+#             full_name = payment_form.cleaned_data['full_name']
+#             email = payment_form.cleaned_data['email']
+#             country = payment_form.cleaned_data['country']
+#             address = payment_form.cleaned_data['address_1']
+#             address2 = payment_form.cleaned_data['address_2']
+#             city = payment_form.cleaned_data['city']
+#             zipcode = payment_form.cleaned_data['zipcode']
+#             phone = payment_form.cleaned_data['phone']
+#             payment_form = ShippingAddress(
+#                 full_name,email,
+#                 country,address,
+#                 address2,city,
+#                 zipcode,phone
+#             )
+#         else:
+#            payment_form.save()
+#     context = {'cartcheck':cartcheck, 'amount':amount}       
+#     return render(request, 'checkout.html', context, {'payment_form':payment_form})
 
 
 

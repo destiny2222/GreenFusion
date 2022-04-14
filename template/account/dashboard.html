@@ -59,19 +59,19 @@
 										 aria-controls="tab-dashboard" aria-selected="true">my account</a>
 								    </li>
 									{% endif %}
-								    <li class="nav-item">
+								    <!-- <li class="nav-item">
 								        <a class="nav-link" id="tab-orders-link" data-toggle="tab" 
 										href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">ORDER HISTORY</a>
-								    </li>
+								    </li> -->
 								    <li class="nav-item">
 								        <a class="nav-link" id="tab-downloads-link" 
 										data-toggle="tab" href="#tab-downloads" 
 										role="tab" aria-controls="tab-downloads" aria-selected="false">Saved Items</a>
 								    </li>
-								    <li class="nav-item">
+								    <!-- <li class="nav-item">
 								        <a class="nav-link" id="tab-address-link" data-toggle="tab"
 										 href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
-								    </li>
+								    </li> -->
 									
 								    <li class="nav-item">
 								        <a class="nav-link" id="tab-account-link" data-toggle="tab" 
@@ -94,13 +94,13 @@
 								    	</p>
 										<div class="container">
 											<div class="row">
-												<div class="col-sm-4 show-none">
+												<div class="col-sm-4" id="show-none">
 													<div class="card  card-dashboard p-4">
 														<div class="card-header ">
 															ACCOUNT DETAILS
-															<a href="" class="float-right" onclick="showform()" style="font-size:20px;">
+															<!-- <a href="" class="float-right" id="show-none"  style="font-size:20px;">
 																<i class="la la-edit"></i>
-															</a>
+															</a> -->
 														</div>
 														<hr>
 														<h3 style="font-size:20px;">
@@ -111,9 +111,9 @@
 														<a href="{% url 'account_reset_password' %}">CHANGE YOUR PASSWORD</a></p>
 													</div>
 												</div>
-												<div class="col-sm-4 show" style="display: none;">
+												<!-- <div class="col-sm-4 show" style="display: none;">
                                                      happy
-												</div>
+												</div> -->
 											</div>
 										</div>
 
@@ -385,10 +385,6 @@
             </div><!-- End .page-content -->
         </main><!-- End .main -->
 
-		<script>
-          var edit = document.querySelector(".show-none").addEventListener(function showfom(showform) {
-			  
-		  })
-		</script>
+		
 
 {% endblock  %}

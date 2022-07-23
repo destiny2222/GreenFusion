@@ -5,7 +5,7 @@
 {%  block body  %}
 
         <main class="main">
-            
+
             <div class="intro-slider-container">
                 <div class="owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl"
                     data-owl-options='{"nav": false, "autoplay":true}'>
@@ -17,16 +17,16 @@
                             <h1 class="intro-title">
                                 {{  i.title|safe }}
                             </h1><!-- End .intro-title -->
-                            <a href="category.html" class="btn btn-primary">
+                            <a href="javascript:void()" class="btn btn-primary">
                                 <span>Shop Now</span>
                                 <i class="icon-long-arrow-right"></i>
                             </a>
                         </div><!-- End .container intro-content -->
                     </div><!-- End .intro-slide -->
                      {%  endfor %}
-                   
 
-                
+
+
                 </div><!-- End .owl-carousel owl-simple -->
 
                 <span class="slider-loader text-white"></span><!-- End .slider-loader -->
@@ -42,7 +42,7 @@
                             <p style="font-size: 30px;">
                                 {{ i.body|safe }}
                             </p>
-                            
+
                         </div>
                         {%  endfor %}
                     </div>
@@ -65,39 +65,39 @@
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="col-sm-6 col-lg-3">
                                 <div class="icon-box icon-box-side">
                                     <span class="icon-box-icon text-dark">
                                         <i class="icon-rotate-left"></i>
                                     </span>
-    
+
                                     <div class="icon-box-content">
                                         <h3 class="icon-box-title">NATIONWIDE SHIPPING</h3>
                                         <p>Swift Delivery all over Nigeria</p>
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="col-sm-6 col-lg-3">
                                 <div class="icon-box icon-box-side">
                                     <span class="icon-box-icon text-dark">
                                         <i class="icon-info-circle"></i>
                                     </span>
-    
+
                                     <div class="icon-box-content">
                                         <h3 class="icon-box-title">QUESTIONS</h3>
                                         <p>Call Us: 0816 170 1105</p>
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="col-sm-6 col-lg-3">
                                 <div class="icon-box icon-box-side">
                                     <span class="icon-box-icon text-dark">
                                         <i class="icon-life-ring"></i>
                                     </span>
-    
+
                                     <div class="icon-box-content">
                                         <h3 class="icon-box-title">We Support</h3>
                                         <p>24/7 Online consultations</p>
@@ -116,11 +116,11 @@
            <section style="background-color: #faf9f9; padding: 50px 0 50px 0;">
                 <div class="container pt-3">
                     <div class="tab-content">
-                        
+
                             <!-- <div class="products"> -->
-                                
+
                                 <div class="row justify-content-center">
-                                   
+
                                     {% for item in nav_cats %}
                                     <div class="col-12 col-md-4 col-lg-3 col-xl-6col">
                                         <div class="product product-11 text-center">
@@ -136,7 +136,7 @@
                                             <div class="p-4 text-start">
                                                 <h3 class="product-title">{{ item.name }}</h3>
                                                 <a href="{% url 'index:itemcategory' item.id %}" style="font-size:16px;">
-                                                    View Product 
+                                                    View Product
                                                     <i class="icon-long-arrow-right"></i>
                                                 </a>
                                                 <!-- End .product-title -->
@@ -144,15 +144,15 @@
                                         </div><!-- End .product -->
                                     </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
                                     {% endfor %}
-                                    
+
                                 </div><!-- End .row -->
                             <!-- </div>End .products -->
-                        
+
                     </div><!-- End .tab-content -->
                 </div><!-- End .container -->
            </section>
 
-            
+
 
            <section style="padding: 50px 0 50px  0;">
                 <div class="blog-posts">
@@ -160,7 +160,7 @@
                         <h2 class="title text-center mb-3" style="font-size: 30px;">Our Blog</h2><!-- End .title-lg text-center -->
 
                         <div class="owl-carousel owl-simple carousel-with-shadow" data-toggle="owl" data-owl-options='{
-                                "nav": false, 
+                                "nav": false,
                                 "dots": true,
                                 "items": 3,
                                 "margin": 20,
@@ -201,7 +201,7 @@
                                 </div><!-- End .entry-body -->
                             </article><!-- End .entry -->
                             {%  endfor %}
-                            
+
                         </div><!-- End .owl-carousel -->
 
                         <div class="more-container text-center mt-2">
@@ -211,8 +211,8 @@
                     </div><!-- End .container -->
                 </div><!-- End .blog-posts -->
            </section>
-            
+
         </main><!-- End .main -->
 
 
-{%  endblock body  %}   
+{%  endblock body  %}

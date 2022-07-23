@@ -1,4 +1,3 @@
-from itertools import product
 from django import template
 from index.models import CartModel,Wishlist
 

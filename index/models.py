@@ -9,10 +9,6 @@ from django.utils.text import slugify
 # user = get_user_model()
 
 class CustomUser(AbstractUser):
-    # fullname = models.CharField(max_length=50, default='')
-    # first_name = models.CharField(max_length=50, default='')
-    # last_name = models.CharField(max_length=50, default='')
-    # username = models.CharField(max_length=20,unique=True)
     phonenumber = models.CharField(max_length=15, default='', blank=True, null=True)
 
     def _str_(self):
@@ -24,20 +20,30 @@ class Category(models.Model):
     image = models.FileField()
     slug = models.SlugField(default='', null=True, blank=True) 
       
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name 
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name) + '-' + slugify(self.created)
-        super(Category, self).save(*args, **kwargs)      
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.name) + '-' + slugify(self.created)
+    #     super(Category, self).save(*args, **kwargs)      
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200)
-    price = models.DecimalField(max_digits=7, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     digital = models.BooleanField(default=False,null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    slug = models.SlugField(default='', null=True, blank=True)
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Product, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -126,33 +132,34 @@ class OrderItem(models.Model):
             
 
 
-# class ShippingAddress(models.Model):
-#     customer = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
-#     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-#     full_name = models.CharField(max_length=60)
-#     # last_name = models.CharField(max_length=60)
-#     address = models.CharField(max_length=200, null=False)
-#     address2 = models.CharField(max_length=200, null=False)
-#     city = models.CharField(max_length=200, null=False)
-#     country = CountryField(multiple=False)
-#     state = models.CharField(max_length=200, null=False)
-#     zipcode = models.CharField(max_length=200, null=False)
-#     email = models.EmailField()
-#     phone = models.CharField(max_length=11, null=False)
-#     default = models.BooleanField(default=False)
-#     date_added = models.DateTimeField(auto_now_add=True)
+class ShippingAddress(models.Model):
+    customer = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    full_name = models.CharField(max_length=60)
+    # last_name = models.CharField(max_length=60)
+    street_address = models.CharField(max_length=200)
+    apartment_address = models.CharField(max_length=200, null=False)
+    city = models.CharField(max_length=200, null=False)
+    country = CountryField(multiple=False)
+    state = models.CharField(max_length=200, null=False)
+    zipcode = models.CharField(max_length=200, null=False)
+    email = models.EmailField()
+    phone = models.CharField(max_length=11, null=False)
+    default = models.BooleanField(default=False)
+    use_default = models.BooleanField(default=False)
+    date_added = models.DateTimeField(auto_now_add=True)
 
-#     # def __str__(self):
-#     #     return self.customer
+    # def __str__(self):
+    #     return self.customer
 
-#     class Meta:
-#         ordering = ('-customer', )
+    class Meta:
+        ordering = ('-customer', )
 
-#     def __str__(self):
-#         return 'Order {}'.format(self.id)
+    def __str__(self):
+        return 'Order {}'.format(self.id)
 
-#     def get_total_cost(self):
-#         return sum(item.get_cost() for item in self.items.all())    
+    def get_total_cost(self):
+        return sum(item.get_cost() for item in self.items.all())    
 
 
 class Blog(models.Model):
@@ -164,14 +171,14 @@ class Blog(models.Model):
     picture = models.FileField()  
     slug = models.SlugField(default='', null=True, blank=True) 
       
-    def __str__(self):
-        return self.title 
+ 
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title) + '-' + slugify(self.created)
         super(Blog, self).save(*args, **kwargs)  
 
-
+    def __str__(self):
+        return self.title
 
 
 class Contact(models.Model):

@@ -1,5 +1,6 @@
+from unicodedata import category
 from django.conf import settings
-from .forms import  EditAccount,FeedbackForm
+from .forms import  EditAccount,FeedbackForm,CheckoutForm
 from django.shortcuts import get_object_or_404, render,redirect
 from django.views.generic import ListView, DetailView, TemplateView
 from .models import *
@@ -32,8 +33,13 @@ def products(request):
     return render(request, "products.html", context)
 
 def getCategoryItems(request, slug):
-    category1 = get_object_or_404(Category, id=slug)
-    items = Product.objects.filter(category=category1)
+    # category1 = get_object_or_404(Category, slug=slug)    
+    # items = Category.objects.filter(category=category1)
+    items = get_object_or_404(Category, slug=slug)
+    if items.DoesNotExist():
+        items = Product.objects.filter(category=items)
+    else: 
+         return redirect("index:404")      
     context = {'items':items}
     return render(request, 'product.html', context)
 
@@ -93,16 +99,22 @@ def BlogDetails(request, slug):
 
 
 def store(request, slug):
-    products = Product.objects.get(id=slug)
+    products = Product.objects.filter(slug=slug)
+    if products.exists():
+        products = Product.objects.get(slug=slug)
+    else:
+        return redirect("index:404")
     context = {'products':products}
     return render(request, 'product.html', context)
 
 
+def Error404(request):
+
+    return render(request, '404.html')       
 
 @login_required(login_url='/login/')
 def wish_details(request):
     wish = Wishlist.objects.filter(user=request.user)
-       
     context = {'wish':wish}
     return render(request, 'wishlist.html', context)    
 
@@ -173,8 +185,96 @@ def checkout(request):
     for i in cartcheck:
         print(float(amount) + (float(i.product.price) * float(i.quantity) ))
         amount = float(amount) + (float(i.product.price) * float(i.quantity) )
+        if request.method == 'POST':
+            form = CheckoutForm(request.POST)
+            if form.is_valid():
+                full_name = form.cleaned_data.get['full_name']
+                email = form.cleaned_data.get['email']
+                country = form.cleaned_data.get['country']
+                city = form.cleaned_data.get['city']
+                zipcode =form.cleaned_data.get['zipcode']
+                phone =form.cleaned_data.get['phone']
+                street_address = form.cleaned_data.get['street_address']
+                apartment_address = form.cleaned_data.get['apartment_address']
+                save_info = form.cleaned_data.get('save_info')
+                use_default = form.cleaned_data.get('use_default')
+
+                shippingaddress = ShippingAddress(
+                    user = request.user,
+                    street_address= street_address,
+                    apartment_address=apartment_address,
+                    country=country,
+                    zipcode=zipcode,
+                    phone=phone,
+                    city=city,
+                    email=email,
+                    # amount=amount,
+                    full_name=full_name,
+                )
+                shippingaddress.save()
+                if save_info:
+                    shippingaddress.default = True
+                    shippingaddress.save()
+
+                cartcheck.address = shippingaddress
+                cartcheck.save()
+
+                if use_default:
+                    shippingaddress = ShippingAddress.objects.get(
+                        user=request.user, default=True)
+                    cartcheck.shippingaddress = shippingaddress
+                    cartcheck.save()
+                return redirect(str(process_payment(full_name,email,amount,phone)))
+            else:
+                messages.warning(request, "Failed Checkout")
+                return redirect('index:checkout')
+        else:
+            form = CheckoutForm()
     context = {'cartcheck':cartcheck, 'amount':amount}
-    return render(request, 'checkout.html',context,{})
+    return render(request, 'checkout.html',context)
+
+def process_payment(full_name,email,amount,phone):
+    auth_token= env('SECRET_KEY')
+    hed = {'Authorization': 'Bearer ' + auth_token}
+    data = {
+                "tx_ref":''+str(math.floor(1000000 + random.random()*9000000)),
+                "amount":amount,
+                "currency":"NGN",
+                "redirect_url":"https://webhook.site/9d0b00ba-9a69-44fa-a43d-a82c33c36fdc",
+                "payment_options":"card",
+                "meta":{
+                    "consumer_id":23,
+                    "consumer_mac":"92a3-912ba-1192a"
+                },
+                "customer":{
+                    "email":email,
+                    "phonenumber":phone,
+                    "name":full_name,
+                },
+                "customizations":{
+                    "title":"Supa Electronics Store",
+                    "description":"Best store in town",
+                    "logo":"https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
+                }
+            }
+    endpoint = 'https://api.flutterwave.com/v3/payments'            
+    get_response = requests.post(endpoint, headers=hed, json='data') 
+    # return Repons(get_response.json())
+    print(get_response.json())
+
+    # url = ' https://api.flutterwave.com/v3/payments'
+    # response = requests.post(url, json=data, headers=hed)
+    # response=response.json()
+    # link=response['data']['link']
+    # return link
+
+@require_http_methods(['GET', 'POST'])
+def payment_response(request):
+    status=request.GET.get('status', None)
+    tx_ref=request.GET.get('tx_ref', None)
+    print(status)
+    print(tx_ref)
+    return HttpResponse('Finished')    
 
 # @login_required(login_url='/login/')
 # def checkout(request):

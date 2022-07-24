@@ -19,6 +19,7 @@ urlpatterns = [
 
     path('search', views.search, name="search"),
     path('product/<slug:slug>/', views.store, name="product"),
+    path('404', views.Error404 , name="404"),
     path('addcart/<int:id>/', views.cart, name="addcart"),
     path('cart/', views.cart_details, name="cart"),
     path('pluscart/<int:id>/', views.cart_increment , name="pluscart"),
@@ -34,8 +35,9 @@ urlpatterns = [
     
     path('blog/', views.BlogView, name='blog'),
     path('contact/', views.ContactView, name='contact'),
-    path('blogdetails/<slug:slug>', views.BlogDetails, name='blogdetails'),
+    path('blogdetails/<slug:slug>/', views.BlogDetails, name='blogdetails'),
     path('checkout/', views.checkout, name="checkout"),
-    path('category/<slug:slug>', views.getCategoryItems, name='itemcategory'),
+    path('payment', views.process_payment, name="payment"),
+    path('category/<slug:slug>/', views.getCategoryItems, name='itemcategory'),
     path('project/', views.projectView.as_view(), name='project')
 ]

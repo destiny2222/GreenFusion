@@ -50,6 +50,8 @@
              </section>
 
 
+
+
              <section class="pt-5 pb-4">
                 <div class="icon-boxes-container">
                     <div class="container">
@@ -113,7 +115,7 @@
 
 
 
-           <section style="background-color: #faf9f9; padding: 50px 0 50px 0;">
+           <section style="background-color: #faf9f9; padding:0 0 50px 0;">
                 <div class="container pt-3">
                     <div class="tab-content">
 
@@ -126,7 +128,7 @@
                                         <div class="product product-11 text-center">
                                             <figure class="product-media">
                                                 <!-- <span class="product-label label-circle label-new {{ item.get_label_display }}-color">New</span> -->
-                                                <a href="{% url 'index:itemcategory' item.id %}">
+                                                <a href="{% url 'index:itemcategory' item.slug %}">
                                                     <img src="{{ item.image.url }}"
                                                         alt="Product image" class="product-image object-cover img-fluid" >
                                                     <img src="{{ item.image.url }}"

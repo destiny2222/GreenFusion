@@ -6432,7 +6432,13 @@ p {
   display: block;
   width: 100%;
   height: auto;
+  max-width: 100%;
 }
+
+.object-cover{
+  object-fit: cover !important;
+}
+
 .product-image-hover {
   position: absolute;
   left: 0;
@@ -6552,7 +6558,7 @@ p {
 }
 .product-body {
   position: relative;
-  padding: 1.6rem 2rem;
+  padding: 1.6rem 2rem 1.5rem;
   transition: all 0.35s ease;
   background-color: #fff;
 }
@@ -6565,7 +6571,7 @@ p {
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: #333333;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.8rem;
 }
 .product-title a {
   color: inherit;
@@ -6742,12 +6748,14 @@ p {
   opacity: 0;
   visibility: hidden;
   transform: translateY(100%);
+  height: auto !important;
 }
 .product:hover .product-action,
 .product:focus .product-action {
   visibility: visible;
   opacity: 1;
   transform: translateY(0);
+  height: auto !important;
 }
 .action-icon-top {
   padding-top: 0.8rem;
@@ -6786,11 +6794,12 @@ p {
   margin-right: 0.9rem;
 }
 .btn-product span {
-  color: #666666;
-  font-weight: 400;
+  color: #3D822B;
+  font-weight: 900;
   font-size: 1.3rem;
   letter-spacing: -0.01em;
   transition: all 0.35s ease;
+  text-transform: uppercase;
 }
 .btn-product:hover,
 .btn-product:focus {
@@ -6862,7 +6871,7 @@ p {
   content: "\e812";
 }
 .btn-wishlist {
-  font-size: 1.6rem;
+  font-size: 3rem;
 }
 .btn-wishlist:before {
   content: "\f234";
@@ -6903,12 +6912,13 @@ p {
   bottom: 0;
   align-items: center;
   display: inline-flex;
-  font-weight: 300;
-  font-size: 1.1rem;
+  font-weight: 500;
+  font-size: 2rem;
   white-space: nowrap;
   letter-spacing: 0;
   min-width: 100px;
   padding-left: 1.8rem;
+  text-transform: uppercase;
   padding-right: 0.4rem;
   color: #fff;
   background-color: #c96;
@@ -7410,7 +7420,7 @@ p {
 }
 .product.product-9 .product-body {
   padding: 1rem 2rem;
-  transition: all 0.3s;
+  transition: all 0.2s ease-in;
 }
 .product.product-9 .product-action {
   bottom: auto;
@@ -7584,7 +7594,7 @@ p {
 }
 .product.product-11 a:hover,
 .product.product-11 a:focus {
-  color: #cc9966;
+  color: #8BC8A6;
 }
 .product.product-11 .btn-product-icon {
   color: #333;
@@ -7593,8 +7603,8 @@ p {
 .product.product-11 .btn-product-icon:hover,
 .product.product-11 .btn-product-icon:focus {
   color: #fff;
-  background-color: #cc9966;
-  border-color: #cc9966;
+  background-color: #8BC8A6;
+  border-color: #8BC8A6;
 }
 .product.product-11 .product-price {
   color: #333;
@@ -7603,7 +7613,7 @@ p {
   text-decoration: none;
 }
 .product.product-11 .product-body {
-  padding-bottom: 7rem;
+  /* padding-bottom: 7rem; */
 }
 .product.product-11 .product-action {
   bottom: 2rem;
@@ -7623,8 +7633,8 @@ p {
 .product.product-11 .btn-product:hover,
 .product.product-11 .btn-product:focus {
   color: #fff;
-  border-color: #cc9966;
-  background-color: #cc9966;
+  border-color: #8BC8A6;
+  background-color: #8BC8A6;
 }
 .product.product-11 .btn-product:hover span,
 .product.product-11 .btn-product:focus span {
@@ -10269,7 +10279,10 @@ button:focus {
 }
 .products .product {
   width: 100%;
+  height: fit-content !important;
 }
+
+
 .product {
   overflow: hidden;
 }

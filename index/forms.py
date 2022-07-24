@@ -1,63 +1,50 @@
 from django import forms
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
-from .models import Contact, CustomUser
+from .models import Contact, CustomUser, ShippingAddress
 
-# class CheckoutForm(forms.ModelForm):
-#     class Meta:
-#         model = ShippingAddress
-#         fields = ['full_name', 'email', 'address', 'address2', 'phone', 'country', 'city','state','zipcode']
-#     full_name = forms.CharField(widget=forms.TextInput(attrs={
-#         'class':'form-control',
-#         'type':'text',
-#         'id': 'full_name',
-#         'placeholder': 'Full Name',
-#     }))
-#     # last_name = forms.CharField(widget=forms.TextInput(attrs={
-#     #     'class':'form-control',
-#     #     'type':'text',
-#     #     'placeholder': '',
-#     # }))
-#     email = forms.CharField(widget=forms.EmailInput(attrs={
-#         'class':'form-control',
-#         'type':'email',
-#         'placeholder': '',
-#         'id': 'email'
-#     }))
-#     country = CountryField(blank_label='(select country)').formfield(
-#         required=False,
-#         widget=CountrySelectWidget(attrs={
-#             'class': 'custom-select d-block w-100',
-#             'class':'form-control',
-#             'id': 'country',
-#             'name': 'country',
-#         }))
-#     address = forms.CharField(widget=forms.TextInput(attrs={
-#         'class': 'form-control',
-#         'placeholder': 'Address 1',
-#         'id': 'address_1'
-#     })) 
-#     address2 = forms.CharField(widget=forms.TextInput(attrs={
-#         'class': 'form-control',
-#         'placeholder': 'Address 2',
-#         'id': 'address_2'
-#     })) 
-#     city = forms.CharField(widget=forms.TextInput(attrs={
-#         'class': 'form-control',
-#         'id': 'city'
-#     }))
-#     zipcode = forms.CharField(widget=forms.TextInput(attrs={
-#         'class': 'form-control',
-#         'id': 'zipcode',
-#     }))  
-#     state = forms.CharField(widget=forms.TextInput(attrs={
-#          'class': 'form-control',
-#          'id': 'state',
-#     })) 
-#     phone = forms.CharField(widget=forms.TextInput(attrs={
-#          'class': 'form-control',
-#          'id': 'phone'
-#     }))
+class CheckoutForm(forms.ModelForm):
+    class Meta:
+        model = ShippingAddress
+        fields = ['full_name', 'email', 'street_address', 'apartment_address',
+         'phone', 'country', 'city','state','zipcode']
+    full_name = forms.CharField(widget=forms.TextInput(attrs={
+        'class':'form-control',
+        'placeholder': 'Full Name',
+    }))
+    # last_name = forms.CharField(widget=forms.TextInput(attrs={
+    #     'class':'form-control',
+    #     'type':'text',
+    #     'placeholder': '',
+    # }))
+    email = forms.CharField(widget=forms.EmailInput(attrs={
+        'class':'form-control',
+        'placeholder': 'Email address',
+    }))
+    country = CountryField(blank_label='(select country)').formfield(
+        required=False,
+        widget=CountrySelectWidget(attrs={
+            'class': 'custom-select d-block w-100',
+            'class':'form-control',
+        }))
+    street_address = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': '1234 main st'
+    })) 
+    apartment_address = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 
+      'form-control', 'placeholder': 'Apartment or suit'}))
+    city = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+    }))
+    zipcode = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+    }))  
+    state = forms.CharField(widget=forms.TextInput(attrs={
+         'class': 'form-control',
+    })) 
+    phone = forms.CharField(widget=forms.TextInput(attrs={
+         'class': 'form-control',
+    }))
 
 
 class FeedbackForm(forms.ModelForm):
